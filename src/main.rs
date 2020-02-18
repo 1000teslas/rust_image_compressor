@@ -2,34 +2,30 @@
 #![allow(unused_imports)]
 #![allow(unused_parens)]
 
-extern crate jpg;
-
-use jpg::run;
-
-mod square_matrix;
 mod bits;
-mod huffman;
 mod compressor;
-mod trie;
 mod decoder;
+mod huffman;
 mod point_store;
+mod square_matrix;
+mod trie;
 
-
-use square_matrix::{SquareMatrix, SubSquare::SSquare};
-use point_store::PStore::PointStore;
-use bits::{BitVec, BitString};
-use huffman::HuffmanEncoder;
+use bits::{BitString, BitVec};
 use compressor::Compressor;
-use trie::Trie;
 use decoder::Decoder;
+use huffman::HuffmanEncoder;
+use point_store::PStore::PointStore;
+use square_matrix::{SquareMatrix, SubSquare::SSquare};
+use trie::Trie;
 
-use std::thread;
 use std::sync::mpsc;
+use std::thread;
 
 use std::env;
+extern crate rust_image_compressor;
+use rust_image_compressor::run;
 
 fn main() {
-
     let image = match parse_args(env::args()) {
         Ok(image) => image,
         Err(err) => {
@@ -43,16 +39,14 @@ fn main() {
     }
 }
 
-fn parse_args(mut args : env::Args) -> Result<String, &'static str> {
-
+fn parse_args(mut args: env::Args) -> Result<String, &'static str> {
     args.next();
 
     match args.next() {
         Some(arg) => Ok(arg),
-        None => Err("No image provided")
+        None => Err("No image provided"),
     }
 }
-
 
 /*
 fn main() {
@@ -247,4 +241,3 @@ fn main() {
 
 }
 */
-
